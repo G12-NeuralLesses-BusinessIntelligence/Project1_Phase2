@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>Item Details</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <h1> Bot de atención al cliente</h1>
+    <form method = "POST">
+        <label for = "name">Nombre</label><br>
+        <input type = "text" name="name"><br>
+        <label for = "comment">Descripción</label><br>
+        <input type = "text" name="comment"><br>
+        <input type = "submit" value="Submit"><br>
+
+        <label >{{result}}</label><br>
+        
+        <script>
+            var resultado = Number({{result}});
+            alert(typeof(resultado));
+            if (resultado === 1){
+            alert("Eres propenso a suicido. D: ");
+            }
+            else {
+            alert("No eres propenso a suicido. :D ");
+            }
+        </script>
+    </form>
+</body>
+</html>
