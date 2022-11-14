@@ -31,7 +31,6 @@ templates = Jinja2Templates(directory="templates")
 def read_root():
    return {"Hello": "World"}
 
-
 @app.get("/page", response_class=HTMLResponse)
 async def read_item(request: Request):
     return templates.TemplateResponse("page.html", {"request": request})
@@ -52,4 +51,3 @@ def make_predictions(lista_msgs: list ):
    pipeline = load('assets/text_classifier.joblib')
    results = pipeline['model'].predict(pipeline['tfidf'].transform(pd.Series(lista_msgs)))
    return {"results": pd.DataFrame(results).to_dict()}
-

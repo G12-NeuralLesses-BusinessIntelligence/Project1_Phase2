@@ -1,29 +1,69 @@
 <html>
 <head>
     <title>Item Details</title>
-    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 <body>
-    <h1> Bot de atención al cliente</h1>
-    <form method = "POST">
-        <label for = "name">Nombre</label><br>
-        <input type = "text" name="name"><br>
-        <label for = "comment">Descripción</label><br>
-        <input type = "text" name="comment"><br>
-        <input type = "submit" value="Submit"><br>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="https://www.nebrija.com/medios/actualidadnebrija/wp-content/uploads/sites/2/2020/04/salud-mental.jpg" width="90"
+            height="80">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#" >
+                <font size="+5"> Bot de Salud mental
+                </font>
+                <span class="sr-only">(current)</span>
+            </a>
+            </li>
+        </div>
+      </nav>
+    <h1> Bot de atención al cliente orientado a su salud mental</h1>
+    <div class="col-7 center">
+        <form>
+            <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" name="name" class="form-control" >
+            </div>
+            <div class="form-group">
+            <label for="comment">Describa sus pensamientos y/o sentimientos</label>
+            <input type="text" name = "comment" class="form-control" >
+            </div>
+            <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Autorizo el tratamiento de mis Datos</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
 
-        <label >{{result}}</label><br>
-        
-        <script>
-            var resultado = Number({{result}});
-            alert(typeof(resultado));
-            if (resultado === 1){
-            alert("Eres propenso a suicido. D: ");
-            }
-            else {
-            alert("No eres propenso a suicido. :D ");
-            }
-        </script>
-    </form>
+            <script>
+                var resultado = Number({{result}});
+                alert(typeof(resultado));
+                if (resultado == 1){
+                alert("Eres propenso a suicido.");
+                }
+                else {
+                alert("No eres propenso a suicido.");
+                }
+            </script>
+
+        </form>
+    </div>
+    <div class="card">
+        <div class="card-header">
+          Alerta
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>En caso de recibir un reporte negativo, se le solicitara realizar una cita urgente con nuestro grupo de psiquiatras.</p>
+            <footer class="blockquote-footer"><cite title="Source Title">No olvide que este modelo cuenta con una precisión cercana al 94% por lo que puede tener errores</cite></footer>
+          </blockquote>
+        </div>
+      </div>
 </body>
 </html>
