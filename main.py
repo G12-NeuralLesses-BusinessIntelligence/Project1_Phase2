@@ -31,18 +31,17 @@ templates = Jinja2Templates(directory="templates")
 def read_root():
    return {"Hello": "World"}
 
-@app.get("/page", response_class=HTMLResponse)
+@app.get("/page")
 async def read_item(request: Request):
-    return templates.TemplateResponse("page.html", {"request": request})
+    return templates.TemplateResponse("page copy.html", {"request": request})
 
 
 
-@app.post("/page", response_class=HTMLResponse)
-async def read_item(request: Request, name: str = Form(...), comment: str = Form(...)):
+@app.post("/page")
+async def read_item( name: str = Form(...), comment: str = Form(...)):
    pipeline = load('assets/text_classifier.joblib')
    result = pipeline['model'].predict(pipeline['tfidf'].transform(pd.Series([comment])))
-   print(result)
-   return templates.TemplateResponse("page.html", {"request": request,"result":result})
+   return int(result[0])
 
 
 @app.post("/predict")

@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>API</title>
+        <script>
+          document.addEventListener("DOMContentLoaded", (event) => {
+            document.getElementById("myForm").addEventListener("submit", function (e) {
+              e.preventDefault(); // Cancel the default action
+              submitForm();
+            });
+          });
+        </script>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="https://www.nebrija.com/medios/actualidadnebrija/wp-content/uploads/sites/2/2020/04/salud-mental.jpg" width="90"
+            height="80">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#" >
+                <font size="+5"> Bot de Salud mental
+                </font>
+                <span class="sr-only">(current)</span>
+            </a>
+            </li>
+        </div>
+      </nav>
+    <h1> Bot de atención al cliente orientado a su salud mental</h1>
+    <div class="col-7 center">
+        <form id="myForm">
+            <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" name="name" class="form-control" >
+            </div>
+            <div class="form-group">
+            <label for="comment">Describa sus pensamientos y/o sentimientos</label>
+            <input type="text" name = "comment" class="form-control" >
+            </div>
+            <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Autorizo el tratamiento de mis Datos</label>
+            </div>
+            <!--
+              <input class="submit" type="submit"  id="submit_input" value="Submit" onclick=""><br>
+            -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+          </form>
+            <script>  
+            function submitForm() {
+                var formElement = document.getElementById('myForm');
+                var data = new FormData(formElement);
+                
+                console.log(data);
+                fetch('/page', {
+                        method: 'POST',
+                        body: data,
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById("responseArea").innerHTML = data;
+                        
+                        //console.log(typeof(data));
+                        if (Number(data) === 1){
+                        alert("Hola, para nosotros como EPS es importante preservar la salud de nuestros usuarios y en tu registro hemos identificado que tienes tendencias a emociones suicidas. Te recomendamos seguir las indicaciones inferiores. D: ");
+                        document.getElementById("responseArea").innerHTML =  "<label >Eres propenso a suicido. D: </label><br>";
+                        }
+                     else if (Number(data) === 0) {
+                        alert("No eres propenso a suicido. :D ");
+                        document.getElementById("responseArea").innerHTML = "<label >No eres propenso a suicido. :D  </label><br>";
+                        }
+                    
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+                    
+                //console.log(data);
+             }
+            </script>
+
+    </div>
+    <div class="card">
+        <div class="card-header">
+          Alerta <br>
+          
+          <div id="responseArea"> </div>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>En caso de recibir un reporte negativo, se le solicitara realizar una cita urgente con nuestro grupo de psiquiatras.</p>
+            <footer class="blockquote-footer"><cite title="Source Title">No olvide que este modelo cuenta con una precisión cercana al 94% por lo que puede tener errores</cite></footer>
+          </blockquote>
+        </div>
+      </div>
+</body>
+</html>
